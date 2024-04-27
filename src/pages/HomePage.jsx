@@ -1,11 +1,13 @@
 import React from "react";
 import { Navbar, Blogs } from "../components";
 
-const HomePage = () => {
+const HomePage = (blogs) => {
+  console.log("Homepage")
+  console.log(blogs)
   return (
     <div>
       <Navbar />
-      <Blogs />
+      <Blogs blogs={blogs?blogs:""} />
     </div>
   );
 };

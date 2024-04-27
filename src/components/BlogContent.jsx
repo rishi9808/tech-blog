@@ -1,29 +1,49 @@
 import React from "react";
+import { useParams } from "react-router-dom";
+import ReactMarkdown from 'react-markdown'
 
-const BlogContent = () => {
+const BlogContent = ({blogs}) => {
+
+  const {id} = useParams()
+
+  console.log("Blog content")
+  console.log(blogs)
+  
+  let blog={}
+  if(blog){
+    let arr   = blogs.data.filter(blog => blog.id == id)
+    blog=arr[0]
+  }
+  else{
+    blog={}
+  }
+
+  console.log("Block object")
+  console.log(blog)
+
+ 
+
   return (
     <div className="w-full px-5 py-8 bg-[#f9f9f9]">
       <div className="max-w-[1240px] mx-auto">
         <div className="grid gap-8 px-20 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-3 ss:grid-cols-1  sm:pt-20 md:mt-0 ss:pt-20 text-black">
           <div className="col-span-2 gap-6">
             <img
-              src="https://images.news18.com/ibnlive/uploads/2022/03/ipl-match-1.jpg"
+              src={`http://localhost:1337${blog.attributes.coverImg.data.attributes.formats.small.url}`}
               className="h-56 w-full object-cover drop-shadow-md rounded-sm "
               alt=""
             />
             <h1 className="font-bold text-2xl my-1 pt-5 text-left">
-              Blog Title
+              {blog.attributes.blogTitle}
             </h1>
             <div className="pt-5">
-              <p className="text-left">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste
-                reprehenderit consequatur, officiis at, assumenda alias odit quo
-                voluptatibus doloribus fugit aperiam obcaecati tenetur
-                voluptatum suscipit in reiciendis laudantium minima omnis
-                aliquam. Ipsum, voluptates eligendi animi modi ducimus vel qui
-                deserunt dolorum debitis id ratione! Est recusandae rem quas
-                facere fugiat!
-              </p>
+              
+              {blog.attributes.blogContent.map((blogdata)=>
+                <ReactMarkdown className="text-left">
+                  {blogdata.children[0].text}
+                </ReactMarkdown>
+            )}
+              
             </div>
           </div>
           <div className="w-full bg-white rounded-xl overflow-hidden drop-shadow-lg py-5 max-h-[250px]">

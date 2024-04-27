@@ -1,11 +1,12 @@
 import React from "react";
 import { Navbar, BlogContent } from "../components";
 
-const BlogContentPage = () => {
+const BlogContentPage = ({blogs}) => {
+  
   return (
     <div>
       <Navbar />
-      <BlogContent />
+      <BlogContent blogs={blogs?blogs:""} />
     </div>
   );
 };
